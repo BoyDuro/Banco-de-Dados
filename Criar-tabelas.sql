@@ -15,7 +15,7 @@ CREATE TABLE Servico(
 
 CREATE TABLE Horario(
 	id INT IDENTITY(1,1) NOT NULL,
-	data VARCHAR(25) NOT NULL,
+	data DATETIME NOT NULL,
 	confirmado BIT NOT NULL,
 	id_cliente INT NOT NULL,
 	id_servico INT NOT NULL,
