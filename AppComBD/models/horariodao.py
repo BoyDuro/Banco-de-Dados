@@ -1,4 +1,5 @@
 from models.horario import Horario
+from datetime import datetime
 import pyodbc
 
 class HorarioDAO:
@@ -8,10 +9,14 @@ class HorarioDAO:
     def inserir(self, obj):
         cursor = self.__conexao.cursor()
         cursor.execute(
-            f'''
-                INSERT INTO Horario (data, confirmado, id_cliente, id_servico) 
-                VALUES ({obj.get_data()}, {obj.get_confirmado()}, {obj.get_id_cliente()}, {obj.get_id_servico()})
             '''
+            INSERT INTO Horario (data, confirmado, id_cliente, id_servico)
+            VALUES (?, ?, ?, ?)
+        ''',
+        obj.get_data(),
+        obj.get_confirmado(),
+        obj.get_id_cliente(),
+        obj.get_id_servico()
         )
         self.__conexao.commit()
 
@@ -45,7 +50,16 @@ class HorarioDAO:
     def atualizar(self, obj):
         cursor = self.__conexao.cursor()
         cursor.execute(
-            f'UPDATE Horario SET data = {obj.get_data()}, confirmado = {obj.get_confirmado()}, id_cliente = {obj.get_id_cliente()}, id_servico = {obj.get_id_service()} WHERE id = {obj.get_id()}'
+            '''
+                UPDATE Horario
+                SET data = ?, confirmado = ?, id_cliente = ?, id_servico = ?
+                WHERE id = ?
+            ''',
+            obj.get_data(),
+            obj.get_confirmado(),
+            obj.get_id_cliente(),
+            obj.get_id_servico(),
+            obj.get_id()
         )
         self.__conexao.commit()
 
