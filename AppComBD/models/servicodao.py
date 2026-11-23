@@ -10,7 +10,7 @@ class ServicoDAO:
         cursor.execute(
             f'''
                 INSERT INTO Servico (descricao, valor) 
-                VALUES ({obj.get_descricao()}, {obj.get_valor()})
+                VALUES ('{obj.get_descricao()}', {obj.get_valor()})
             '''
         )
         self.__conexao.commit()
@@ -40,7 +40,7 @@ class ServicoDAO:
     def atualizar(self, obj):
         cursor = self.__conexao.cursor()
         cursor.execute(
-            f'UPDATE Servico SET descricao = {obj.get_descricao()}, valor = {obj.get_valor()} WHERE id = {obj.get_id()}'
+            f"UPDATE Servico SET descricao = '{obj.get_descricao()}', valor = {obj.get_valor()} WHERE id = {obj.get_id()}"
         )
         self.__conexao.commit()
 
